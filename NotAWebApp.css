@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+}
+h1 {
+    text-align: center;
+    margin: 20px 20px 0 20px;
+}
+h2 {
+    background-color: lightgrey;
+    position: absolute;
+    width: 90%;
+    height: 300px;
+    padding: 50px;
+    margin: 20px;
+}
+#topRight {
+    background-color: darkgrey;
+    position: absolute;
+    right: 0px;
+    width: 10%;
+    height: 150px;
+    padding: 15px 40px 30px 15px;
+    margin: 20px 17px 20px 20px;
+}
+.timer {
+    background-color: lightgrey;
+    width: 30%;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+}
+.nextGame {
+    
+}
+.usersOnline {
+    background-color: lightgrey;
+    border-radius: 25px;
+    width: 30%;
+    padding: 10px;
+}
+.chat {
+
+}
+.currentScore {
+    text-align: center;
+}
+.container {
+    position: relative;
+    margin: 325px 10px 50px 20px;
+}

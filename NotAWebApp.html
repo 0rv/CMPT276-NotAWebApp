@@ -2,53 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <style>
-            body {
-                margin: 0;
-            }
-            h1 {
-                text-align: center;
-                margin: 20px 20px 0 20px;
-            }
-            h2 {
-                background-color: lightgrey;
-                position: absolute;
-                width: 90%;
-                height: 300px;
-                padding: 50px;
-                margin: 20px;
-            }
-            #topRight {
-                background-color: darkgrey;
-                position: absolute;
-                right: 0px;
-                width: 10%;
-                height: 150px;
-                padding: 15px 40px 30px 15px;
-                margin: 20px 17px 20px 20px;
-            }
-            #bottom {
-                position: relative;
-                margin: 425px 10px 50px 20px;
-            }
-            #timer {
-                background-color: lightgrey;
-                width: 30%;
-                border-radius: 25px;
-            }
-            #nextGame {
-                
-            }
-            #usersOnline {
-
-            }
-            #chat {
-
-            }
-            #currentScore {
-                text-align: center;
-            }
-        </style>
+        <link rel="stylesheet" href="NotAWebApp.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
         <h1>Title of Game</h1>
@@ -57,13 +13,21 @@
             Goal: # <br>
             Speed: # <br>
         </p>
-        <div id="bottom">
-            <p id="timer">Timer</p>
-            <p id="nextGame">Until next game</p>
-            <p id="usersOnline">Users Online</p>
-            <p id="chat">Chat Box</p>
-            <p id="currentScore">Current Score: ##</p>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="timer">Timer</p>
+                    <p class="nextGame">Until next game</p>
+                    <p class="usersOnline">Users Online</p>
+                </div>
+                <div class="col-sm-6">
+                    <p class="chat">Chat Box</p>
+                </div>
+            </div>
         </div>
+
+        <p id="bottom" class="currentScore">Current Score: ##</p>
 
     </body>
 </html>
