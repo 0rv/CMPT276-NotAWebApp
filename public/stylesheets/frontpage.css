@@ -1,0 +1,124 @@
+body {
+    background: url(/slightblur.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: rgb(69, 72, 76);
+    margin-top: 0px;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+}
+
+#container {
+    background-color: rgb(66, 57, 89);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+    width: 300px;
+    height: 500px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    padding-top: 20px;
+    text-align: center;
+    animation: fadeIn 1s ease-in both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -15%, 0);
+    }
+    to {
+        opacity: 0.90;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+h3 {
+    font-family: Amatic SC, sans-serif;
+    font-size: 50px;
+    color: rgb(70, 202, 146);
+    text-align: center;
+    letter-spacing: 0.07em;
+    margin-bottom: 15px;
+}
+
+h6 {
+    margin-top: 120px;
+    margin-bottom: 10px;
+    font-family: Amatic SC, sans-serif;
+    font-size: 17px;
+    letter-spacing: 0.07em;
+    color: rgb(70, 202, 146);
+    text-align: center;
+}
+
+h6:after {
+    content: "";
+    display: inline-block;
+    width: 55px;
+    height: 1px;
+    position: relative;
+    background: rgb(70, 202, 146);
+    vertical-align: middle;
+    left: 0.5em;
+}
+
+h6:before {
+    content: "";
+    display: inline-block;
+    width: 55px;
+    height: 1px;
+    position: relative;
+    background: rgb(70, 202, 146);
+    vertical-align: middle;
+    right: 0.5em;
+}
+
+input {
+    width: 200px;
+    height: 25px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    border-radius: 25px;
+    font-family: Courier New, sans-serif;
+    font-size: 14px;
+}
+
+button {
+    background-color: rgb(222, 73, 137);
+    border: none;
+    border-radius: 25px;
+    color: rgb(255, 236, 207);
+    float: right;
+    margin: 20px;
+    margin-right: 40px;
+    padding: 4px 4px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    font-family: Amatic SC, sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    opacity: 1;
+}
+
+button:hover {
+    opacity: 0.7;
+}
+
+a {
+    text-decoration: none;
+    font-family: Courier New, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: rgb(222, 73, 137);
+}
+
+a:hover {
+    color: rgb(255, 236, 207);
+}

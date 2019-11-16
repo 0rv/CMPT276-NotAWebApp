@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+}
+h1 {
+    text-align: center;
+    color: rgb(70, 202, 146);
+    font-family: Amatic SC, sans-serif;
+    letter-spacing: 0.07em;
+    margin: 20px 20px 0 20px;
+}       /*get fonts to match login page*/
+h2 {
+    background-color: rgb(66, 57, 89);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    position: absolute;
+    width: 80%;
+    left: 130px;
+    margin: 20px;
+    height: 400px;
+}
+#topRight {
+    background-color: rgb(66, 57, 89);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    border-top-right-radius: 25px;
+    position: absolute;
+    right: 138px;  /*get this to match up*/
+    width: 10%;
+    height: 25%;
+    padding: 15px 40px 30px 15px;
+    /*margin: 20px 17px 20px 20px;*/
+}
+.timer {
+    color: rgb(222, 73, 137);
+    background-color: rgb(66, 57, 89);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    width: 30%;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+    padding: 10px;
+    padding-right: 110px;
+    /* vertical-align: top; */
+}
+.nextGame {
+    color: rgb(70, 202, 146);
+    letter-spacing: 0.07em;
+}
+.usersOnline {
+    background-color: rgb(66, 57, 89);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    border-radius: 25px;
+    width: 30%;
+    padding: 10px;
+    padding-right: 110px;
+    height: 180px;
+    color: rgb(222, 73, 137); /*for now this but need different colour for each user*/
+    /* vertical-align: bottom; */
+}
+.chat {
+    position: absolute;
+    bottom: 5px;
+    border-radius: 25px;
+    width: 96%; /*is this ok?*/
+    font-family: Courier New, sans-serif;
+    padding-left: 10px;
+    height: 25px;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.col-sm-8 {
+    background-color: rgb(66, 57, 89);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    border-radius: 25px;
+    height: 300px;
+    padding: 10px;
+}
+.currentScore {
+    text-align: center;
+    margin: 20px;
+}
+.container {
+    position: relative;
+    margin: 450px 0px 0px 0px;
+}
+.logout {
+    border: none;
+    color: rgb(222, 73, 137); 
+    background-color: rgb(66, 57, 89);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+    opacity: 0.90;
+    border-radius: 25px;
+    position: relative;
+    margin: 5px;
+    vertical-align: bottom;
+    left: 20px;
+}

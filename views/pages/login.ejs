@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
   <head>
@@ -76,3 +77,42 @@
     </div>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/apphead.ejs %>
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="header">
+            <h3 id="title">Not A Web App</h3>
+
+            <br>
+            <form id="loginForm" method="post">
+                <input type="text" name='userid' placeholder="user id" maxlength="25" required>
+                <input type="password" name='password' maxlength="25" placeholder="password" required>
+                <br>
+                <input type="button" id="login" onclick="loginUser()" value="login"></button>
+            </form>
+
+            <h6>don't have an account?</h6>
+            <a href="signup"> >> Sign Up << </a>
+        </div>
+
+
+    </div>
+    <script>
+        //Login user
+        function loginUser() {
+            document.getElementById('loginForm').action = '/login';
+            document.getElementById('loginForm').submit();
+        }
+    </script>
+</body>
+
+</html>
+>>>>>>> cf93d1f49b31da2a0f7bad422e00848e08e1e55a

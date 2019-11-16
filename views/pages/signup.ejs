@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/apphead.ejs %>
+</head>
+
+<body>
+    <div id="container">
+
+        <div id="header">
+            <h3 id="title">Not A Web App</h3>
+
+            <br>
+            <form method="POST" id="signUpForm">
+                <input type="text" name='userid' placeholder="user id" maxlength="25" required>
+                <input type="password" name='password' placeholder="password" maxlength="25" required>
+                <br>
+                <input type="button" id="signup" onclick="signUpUser()" value="sign up"></button>
+            </form>
+
+            <h6>already have an account?</h6>
+            <a href="login"> >> Login << </a>
+        </div>
+
+
+    </div>
+    <script>
+        //Add new user
+        function signUpUser() {
+            document.getElementById('signUpForm').action = '/signup';
+            document.getElementById('signUpForm').submit();
+        }
+    </script>
+</body>
+
+</html>
