@@ -1,0 +1,132 @@
+body        { 
+                background: url(/play.jpg);
+                background-repeat: no-repeat;
+                background-size: 100%;
+                color: rgb(69, 72, 76); 
+                margin-top: 0px;
+                font-family: Verdana, sans-serif; 
+                font-size: 12px;
+            }
+
+#container  { 
+                background-color: rgb(66, 57, 89);
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 5%;
+                width: 350px;
+                height: 600px;
+                border-top-right-radius: 25px;
+                border-bottom-left-radius: 25px;
+                box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.75);
+                opacity: 0.90;
+                padding-top: 5px;
+                text-align: center;
+                animation: fadeIn 1s ease-in both;
+            }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -15%, 0);
+    }
+    to {
+        opacity: 0.90;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+h3          {   
+                font-family: Amatic SC, sans-serif;
+                font-size: 50px;
+                color: rgb(70, 202, 146);
+                text-align: center;
+                letter-spacing: 0.07em;
+                padding-top: 0px;
+                margin-bottom: 0px;
+            }
+
+h5          {
+                font-family: Courier New, sans-serif;
+                font-size: 18px;
+                font-weight: 500;
+                color: rgb(255, 236, 207);
+                letter-spacing: 0.15em;
+                text-align: center;
+                margin-top: 0px;
+                margin-bottom: 25px;
+            }
+
+input       { 
+                width: 200px;
+                height: 25px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left:10px;
+                border-radius: 25px;
+                font-family: Courier New, sans-serif; 
+                font-size: 14px;
+                
+            }
+
+button      {
+                background-color: rgb(222, 73, 137);
+                border: none;
+                border-radius: 25px;
+                color: rgb(255, 236, 207);
+                margin-bottom: 14px;
+                margin-left:auto;
+                margin-right:auto;
+                padding: 4px 4px;
+                width: 220px;
+                height: 45px;
+                text-align: center;
+                font-family: Amatic SC, sans-serif;
+                font-size: 20px;
+                letter-spacing: 0.1em;
+                opacity: 1;
+            }
+#button1    {   background-color: rgb(162, 60, 136); }
+#button2    {   background-color: rgb(222, 73, 137); }
+#button3    {   background-color: rgb(240, 110, 119); }
+#button4    {   background-color: rgb(247, 172, 117) }
+#button5    {   background-color: rgb(255, 236, 207); 
+                color: rgb(66, 57, 89);    
+            }
+#button6    {   background-color: rgb(70, 202, 146) }
+
+button:hover { opacity: 0.7; }
+
+a           {   
+                text-decoration: none;
+                font-family: Courier New, sans-serif;
+                font-size: 14px;
+                letter-spacing: 0.1em;
+                color: rgb(222, 73, 137);
+            }
+
+a:hover     {   color: rgb(255, 236, 207); }
+
+p           {
+                font-family: Courier New, sans-serif;
+                font-size: 12px;
+                font-weight: 500;
+                color: rgb(255, 236, 207);
+                letter-spacing: 0.01em;
+                text-align: right;
+                margin-top: 10px;
+                margin-bottom: 25px;
+}
+
+#ppbox       {
+                background-color: rgb(255, 236, 207);
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 0px;
+                margin-bottom: 5px;
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+}
+

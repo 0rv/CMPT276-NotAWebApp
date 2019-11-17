@@ -16,15 +16,17 @@ express()
     .set('view engine', 'ejs')
     .get('/', (req, res) => res.render('pages/login'))
     .get('/main', (req, res) => res.render('pages/NotAWebApp'))
+    .get('/mainmenu', (req, res) => res.render('pages/mainmenu'))
+    .get('/underconstruction', (req, res) => res.render('pages/underconstruction'))
     .get('/login', (req, res) => res.render('pages/login'))
     .post('/login', async(req, res) => {
         try {
             const client = await pool.connect()
             const result = await client.query(`SELECT password FROM users WHERE userid = '${req.body.userid}'`);
 
-            const results = { 'results': (result) ? result.rows : null };
+            var results = { 'rows': result.rows };
             if (result.rows[0].password == req.body.password) {
-                res.render('pages/NotAWebApp', results);
+                res.render('pages/mainmenu', results);
                 console.log("logged in");
             } else {
                 res.render('pages/signup', results);
