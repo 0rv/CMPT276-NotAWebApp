@@ -1,73 +1,40 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
     <meta charset="utf-8">
-
     <title>Not A Web App</title>
-
     <link rel="stylesheet" href="NotAWebApp.css">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
 </head>
-
 <body>
-
     <script src="NotAWebApp.js"></script>
 
-
-
-    <h1>Title of Game</h1>
-
-    <button class="logout">Logout</button>
-
+    <h1>Not A Web App</h1>
+    <button id="logout-form">Logout</button>
     <h2> </h2>
 
-
-
     <p id="topRight">Current Location: # <br> Goal: # <br> Speed: # <br>
-
     </p>
 
-
-
     <div class="container">
-
         <div class="row">
-
             <div class="col-sm-4">
-
                 <p class="timer">Timer</p>
-
-                <p class="nextGame">Until next game</p>
-
-                <p class="usersOnline">Users Online</p>
-
+                <p class="nextGame"></p> <!-- Until next game -->
+                <p class="usersOnline" id="counter">Users Online: </p>
             </div>
-
             <div class="col-sm-8">
-
-                <p>Chat Box</p>
-
-                <input type="text" class="chat" placeholder="Type here to chat">
-
+                <ul id="messages"></ul>
+                <form action="/NotAWebApp" method="POST" id="chatForm">
+                    <input id="txt" autocomplete="off" autofocus="on" placeholder="Type here to chat" />
+                    <button>Send</button>
+                </form>
             </div>
-
         </div>
-
     </div>
-
-
-
     <p id="bottom" class="currentScore">Current Score: ##</p>
-
-
-
 </body>
-
 </html>

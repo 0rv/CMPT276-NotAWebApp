@@ -1,23 +1,17 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
       <meta charset="utf-8">
+      <% include ../partials/apphead.ejs %>
       <style>
-        h1
-        {
+        h1 {
           font-family: sans-serif;
           text-align: center;
           margin: 180px 20px 0 20px;
           padding: 20px;
           opacity: 0.8;
         }
-        h2
-        {
-
-        }
-        .login
-        {
+        .login {
           border-radius: 70px;
           background-color: lightgrey;
           position: relative;
@@ -26,21 +20,18 @@
           padding: 50px;
           margin: auto;
         }
-        #stuff
-        {
+        #stuff {
           font-family: sans-serif;
           font-size: 20px;
         }
-        #username
-        {
+        #username {
           padding: 5px;
           font-family: sans-serif;
           font-size: 15px;
           border-radius: 10px;
           margin: 10px;
         }
-        #pwd
-        {
+        #pwd {
           padding: 5px;
           font-family: sans-serif;
           font-size: 15px;
@@ -48,15 +39,13 @@
           margin: 10px;
         }
         /* buttons */
-        #login
-        {
+        #login {
           padding: 5px;
           font-size: 15px;
           border-radius: 10px;
           margin: 5px;
         }
-        #join
-        {
+        #join {
           border-radius: 10px;
           padding: 5px;
           font-size: 15px;
@@ -65,32 +54,9 @@
       </style>
   </head>
   <body>
-    <h1>NotAWebApp</h1>
-    <div align="center" class="login">
-      <h2></h2>
-      <form id="stuff">
-        <input type="text" id="username" placeholder="username"><br>
-        <input type="password" id="pwd" placeholder="password" maxlength="8"><br>
-        <button type="button" id="login">Login</button>
-        <button type="button" id="join">Sign Up</button>
-      </form>
-    </div>
-  </body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <% include ../partials/apphead.ejs %>
-</head>
-
-<body>
     <div id="container">
-
         <div id="header">
             <h3 id="title">Not A Web App</h3>
-
             <br>
             <form id="loginForm" method="post">
                 <input type="text" name='userid' placeholder="user id" maxlength="25" required>
@@ -112,7 +78,5 @@
             document.getElementById('loginForm').submit();
         }
     </script>
-</body>
-
+  </body>
 </html>
->>>>>>> cf93d1f49b31da2a0f7bad422e00848e08e1e55a
