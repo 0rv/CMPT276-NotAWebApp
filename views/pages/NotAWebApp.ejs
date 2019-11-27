@@ -10,36 +10,75 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="/js/NotAWebApp.js"></script>
+    
+    <!-- Google font for h1-->
+    <link href='https://fonts.googleapis.com/css?family=Amatic SC' rel='stylesheet'>
 </head>
 <body>
-
-
-
-    <h1>Map Game</h1>
-
-    <button id="logout-form" onclick="location.href='/login'">Logout</button>
-    <button id="fright" onclick="toggleTheme()">Light Mode</button>
-    <h2> </h2>
-
-    <p id="topRight">Current Location: # <br> Goal: # <br> Speed: # <br>
-    </p>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <p class="timer"> </p> <!-- Timer-->
-                <p class="nextGame"></p> <!-- Until next game -->
-                <p class="usersOnline" id="counter">Users Online: </p>
+<div class="container">
+        <h1 id="title">Map Game</h1>
+         
+         <div class="buttons-and-options">
+            <button id="logout-form" onclick="location.href='/mainmenu'">Back</button>
+             <br>
+             <button id="fright" onclick="toggleTheme()">Light Mode</button>
+             <br>
+             <button id="hint" onclick="">Use Hint</button>
+             <br>
+             <br>
+             <p id="user_online">5</p>
+             <br>
+             <p>Users Online</p>
+             <br>
+             <p id="hint_left">3</p>
+             <br>
+             <p>Hints Left</p>
+             <br>
+             <br>
+             <p id="count_down">10m 00s</p>
+             <br>
+             <p>Time Left</p>
+             <br>
+             <p id="score">---</p>
+             <br>
+             <p>Player's Score</p>
+             <br>   
+        </div>
+         
+         <div class="map-and-chat">
+            
+            <div class="map">
+            
             </div>
-            <div class="col-sm-8">
+             
+             <div class="chat">
                 <ul id="messages"></ul>
                 <form id="chatForm">
                     <input id="txt" autocomplete="off" autofocus="on" placeholder="Type here to chat" />
                     <button>Send</button>
                 </form>
             </div>
-        </div>
-    </div>
-    <p id="bottom" class="currentScore">Current Score: ##</p>
+
+         </div>
+         
+        <div class="answer">
+            <form id="guess-form" action="" method="post">
+                <select name="country" id="country_op">
+                    <option value="us">U.S.</option>
+                    <option value="canada">Canada</option>
+                    <option value="china">China</option>
+                </select>
+             
+                <select name="area" id="area_op">
+                    <option value="california">California</option>
+                    <option value="bc">British Columbia</option>
+                    <option value="guangdong">Guangdong</option>
+                </select>
+             
+                <button id="guess" onclick="calculateScore()">Make A Guess</button>
+            </form>
+            <p id="comment"></p>
+         </div>
+     </div>
 </body>
 </html>

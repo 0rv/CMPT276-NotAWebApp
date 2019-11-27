@@ -67,3 +67,59 @@ $(function(){
         $("#counter").text(data.count);
     });
 });
+
+//------ Count Down and Score -------
+//global var
+var initialTime = 60 * 1; //10 mins
+var finishGame = false;
+
+window.onload = function () {
+    var timer = document.getElementById("count_down");
+    
+    var count = setInterval(function() {
+        initialTime--;
+        
+        var m = Math.floor(initialTime/60);
+        var s = Math.floor(initialTime%60);
+        var min = m.toString();
+        var sec = s.toString();
+        if (m < 10) { min = "0" + min; }
+        if (s < 10) { sec = "0" + sec; }
+        timer.innerHTML = min + "m " + sec + "s";
+        
+        if (initialTime == 0) {
+            clearInterval(count);
+            timer.innerHTML = "Game Over";
+            finishGame = true;
+        }
+        else if (finishGame == true) {
+            clearInterval(count);
+        }
+    }, 1000);
+}
+
+function calculateScore() {
+    var ans1 = document.getElementById("country_op");
+    var ans2 = document.getElementById("area_op");
+    var res = document.getElementById("score");
+    var comment = document.getElementById("comment");
+    
+    var correct_ans1 = "canada";
+    var correct_ans2 = "bc";
+    
+    if (initialTime > 0) {
+        if (finishGame == false) {
+            if ( (ans1.value == correct_ans1) && (ans2.value == correct_ans2) ) {
+                res.innerHTML =  initialTime * 5;
+                comment.innerHTML = "You got it!";
+                finishGame = true;
+            }
+            else {
+                comment.innerHTML = "oops, that's not the correct answer. try again!";
+            }   
+        }
+    }
+    else {
+        res.innerHTML = "0";
+    }
+}
