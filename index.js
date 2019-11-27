@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const ee = require('@google/earthengine');
 const http = require('http').Server(express); //chat
 const io = require('socket.io')(http);
 const { Pool } = require('pg');
@@ -9,9 +8,7 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: true
 });
-  
-ee.initialize(null, null, 3000);
-//unsure if we need to initialize google earth engine without an assocated service account to authorize
+
 
 app = express();
     app.use(express.static(path.join(__dirname, 'public')))
@@ -19,16 +16,6 @@ app = express();
     .use(express.urlencoded({ extended: false }))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
-    .post('/randMap', (req, res) => {
-      //const image = ee.Image()
-  
-      var image = ee.Image('CGIAR/SRTM90_V4');
-      Map.setCenter(-110, 40, 5);
-      Map.addLayer(image, {min: 0, max: 3000}, 'SRTM');
-      console.log("yett2")  
-      res.render('pages/login')  
-      
-    })
     .get('/', (req, res) => res.render('pages/login'))
     .get('/main', (req, res) => res.render('pages/NotAWebApp'))
     .get('/mainmenu', (req, res) => res.render('pages/mainmenu'))
