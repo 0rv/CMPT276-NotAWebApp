@@ -3,6 +3,9 @@
 
 <head>
     <% include ../partials/apphead.ejs %>
+    <!--
+      confirm that this is the inital page on local port 5000
+      -->
 </head>
 
 <body>
@@ -22,26 +25,18 @@
             <h6>don't have an account?</h6>
             <a href="signup"> >> Sign Up << </a>
         </div>
-        <br>
-        <form id="mapSubmit" method="post">
-          <!-- local IDIOT (me) doesn't know how to get/post on non-form elements so this is what you've got for
-            tentative API usage on our iteration 2; core functionality will DEFINITELY be changed but this is
-            probably the baseline for what we implement now that we're changing our whole project (thx Bobby <3) -->
-            <input type="text" name='sample' placeholder="input" required>
-            <input type="button" id="mapButton" onclick="useMaps()" value="click here for SAMPLE API usage (iteration 2)"></button>
-        </form>
 
 
     </div>
+    <button id="test" onClick="getPage()">Short</button>
     <script>
         //Login user
         function loginUser() {
           document.getElementById('loginForm').action = '/login';
           document.getElementById('loginForm').submit();
         }
-        function useMaps() {
-          document.getElementById('mapSubmit').action = '/randMap';
-          document.getElementById('mapSubmit').submit();
+        function getPage() {
+          console.log("RES = "+res)
         }
     </script>
 </body>

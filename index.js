@@ -17,13 +17,13 @@ app = express();
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/login'))
-  .get('/main', (req, res) => res.render('pages/NotAWebApp'))
+  .get('/main', (req, res) => res.render('pages/notawebapp'))
   .get('/mainmenu', (req, res) => res.render('pages/mainmenu'))
+  .get('/socket', (req, res) => res.render('pages/socket'))
   .get('/underconstruction', (req, res) => res.render('pages/underconstruction'))
   .get('/login', (req, res) => res.render('pages/login'))
-  .post('/main', async(req, res) => { res.render('pages/NotAWebApp') })
+  .post('/main', async(req, res) => { res.render('pages/notawebapp') })
   .post('/login', async(req, res) => {
-    console.log(res)
     try {
       // input sanitation (protection from injection attacks) is beyond the scope of the project because I'm depressed :)))
       console.log("recieved login request with uid", req.body.userid, "password", req.body.password)
