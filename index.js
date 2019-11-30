@@ -32,6 +32,7 @@ app = express();
     .get('/', (req, res) => res.render('pages/login'))
     .get('/main', (req, res) => res.render('pages/NotAWebApp'))
     .get('/mainmenu', (req, res) => res.render('pages/mainmenu'))
+    .get('/howto', (req, res) => res.render('pages/howto'))
     .get('/underconstruction', (req, res) => res.render('pages/underconstruction'))
     .get('/login', (req, res) => res.render('pages/login'))
     .post('/main', async(req, res) => { res.render('pages/NotAWebApp') })
