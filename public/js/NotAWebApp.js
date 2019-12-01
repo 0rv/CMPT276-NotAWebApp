@@ -70,7 +70,7 @@ $(function(){
 
 //------ Count Down and Score -------
 //global var
-var initialTime = 60 * 1; //10 mins
+var initialTime = 60 * 10; //10 mins
 var finishGame = false;
 
 window.onload = function () {

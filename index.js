@@ -73,6 +73,33 @@ app = express();
             console.error(err);
             res.send("Error " + err);
         }
+    })
+    .get('/review', async(req,res) => {
+        try {
+            const client = await pool.connect()
+            const result = await client.query(`SELECT * FROM review;`);
+
+            const results = { 'rows': result.rows };
+            res.render('pages/review', results);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
+    })
+    .post('/review', async(req, res) => {    
+        try {
+            const client = await pool.connect()
+            const result = await client.query(`INSERT INTO review VALUES('${req.body.name}', '${req.body.review}');`);
+            
+            const result2 = await client.query(`SELECT * FROM review;`);
+            const results = { 'rows': result2.rows };
+            res.render('pages/review', results);
+            client.release();
+        } catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
     });
 
 var counter = 0;
