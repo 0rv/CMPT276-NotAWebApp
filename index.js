@@ -9,6 +9,22 @@ const pool = new Pool({
 // less so for the following...
 var express = require('express');
 var app = express();
+// configuration for Heroku build
+//https://stackoverflow.com/questions/11001817/allow-cors-rest-request-to-a-express-node-js-application-on-heroku
+//The following enables CORS (Cross-Origin Resource Sharing) which would otherwise prevent some socket.io functionality by preventing the load of some required js. The long and short is that we should not be requiring any resource from an http connection while on https (and can be somewhat bypassed by revoking the secure connection on the remote deploy)
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 // Look, whatever model this guy is using
