@@ -28,7 +28,14 @@
 
 
     </div>
-    <button id="test" onClick="getPage()">Short</button>
+    <form id="test" method="post">
+      <!--
+        GET/POST using forms here because the alternative XLM/PHP methods are nightmares to use
+        and frankly I think it's outside of the scope of the course for a 2-3 person project
+        not sure if this can be made more complex with use of stock buttons over (submit) buttons
+        -->
+      <input type="submit" onclick="getPage()" value="short"></button>
+    </form>
     <script>
         //Login user
         function loginUser() {
@@ -36,7 +43,9 @@
           document.getElementById('loginForm').submit();
         }
         function getPage() {
-          console.log("RES = "+res)
+          document.getElementById('test').action = '/socket'
+          document.getElementById('test').submit()
+          
         }
     </script>
 </body>

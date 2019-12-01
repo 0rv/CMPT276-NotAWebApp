@@ -1,8 +1,10 @@
 const express = require('express')
+const app = express(); //const?
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const http = require('http').Server(express); //chat
-const io = require('socket.io')(http);
+//const server = require('http').Server(express); //chat
+const server = app.listen(80);
+const io = require('socket.io').listen(server);
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -10,16 +12,16 @@ const pool = new Pool({
 });
 
 
-app = express();
   app.use(express.static(path.join(__dirname, 'public')))
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
+  .post('/socket', (req, res) => res.render('pages/socket'))
   .get('/', (req, res) => res.render('pages/login'))
   .get('/main', (req, res) => res.render('pages/notawebapp'))
   .get('/mainmenu', (req, res) => res.render('pages/mainmenu'))
-  .get('/socket', (req, res) => res.render('pages/socket'))
+  //.get('/socket', (req, res) => res.render('pages/socket'))
   .get('/underconstruction', (req, res) => res.render('pages/underconstruction'))
   .get('/login', (req, res) => res.render('pages/login'))
   .post('/main', async(req, res) => { res.render('pages/notawebapp') })
@@ -62,6 +64,7 @@ app = express();
     }
   });
 
+/*
 var counter = 0;
 io.sockets.on('connection', function(socket) {
   socket.on('username', function(username) {
@@ -79,7 +82,16 @@ io.sockets.on('connection', function(socket) {
     io.emit('chat_message', ' <strong> ' + socket.username + ' </strong>: ' + message);
   });
 });
+*/
+
+  io.on('connection', function (socket) {
+    console.log("socket connected")
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
+  });
 
 // pick one, comment the other
-app.listen(PORT, () => { console.log(`Listening on ${ PORT }`);  }) 
-// http.listen(PORT, () => { console.log(`Listening on ${ PORT }`);  }) 
+app.listen(PORT, () => { console.log(`App listening on ${ PORT }`);  }) 
+//server.listen(80, () => { console.log('Socket listening on 80');  }) 

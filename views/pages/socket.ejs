@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/apphead2.ejs %>
+  <!--
+    Page shold contain socket.io usage before implementation in main content page
+    You SHOULD NOT see this page in production
+    -->
+</head>
+
+<body>
+  <div id="container">
+
+    <div id="header">
+      <h3 id="title">Socket.io Testbed</h3>
+      <h5 id="username">nothing to see here :(</h5>
+      <!--<button id="button1" value="b1" onclick="window.location.href = 'mainmenu';">go back?</button>  
+        -->      
+    </div>
+
+
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost');
+    socket.on('news', function (data) {
+      console.log(data);
+      socket.emit('my other event', { my: 'data' });
+    });
+  </script>
+</body>
+
+</html>
