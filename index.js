@@ -1,16 +1,20 @@
-const express = require('express')
-const app = express(); //const?
 const path = require('path')
 const PORT = process.env.PORT || 5000
-//const server = require('http').Server(express); //chat
-const server = app.listen(80);
-const io = require('socket.io').listen(server);
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: true
 });
-
+// DO NOT CHANGE above instance variables; we're reasonably sure it all works
+// less so for the following...
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+// Look, whatever model this guy is using
+// https://www.programwitherik.com/socket-io-tutorial-with-node-js-and-express/
+// Just go with it we don't reasonably have time to make the perfect implementation
+// i.e with react or other libraries
 
   app.use(express.static(path.join(__dirname, 'public')))
   .use(express.json())
@@ -93,5 +97,5 @@ io.sockets.on('connection', function(socket) {
   });
 
 // pick one, comment the other
-app.listen(PORT, () => { console.log(`App listening on ${ PORT }`);  }) 
-//server.listen(80, () => { console.log('Socket listening on 80');  }) 
+//app.listen(PORT, () => { console.log(`App listening on ${ PORT }`);  }) 
+server.listen(PORT, () => { console.log(`Socket listening on ${ PORT }`);  }) 
