@@ -9,6 +9,15 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: true
 });
+const nodemailer = require('nodemailer');
+const mailGun = require('nodemailer-mailgun-transport');
+const auth = {
+    auth: {
+        api_key: process.env.MAILGUN_API,
+        domain: process.env.MAILGUN_DOMAIN
+    }
+};
+const transporter = nodemailer.createTransport(mailGun(auth));
   
 ee.initialize(null, null, 3000);
 //unsure if we need to initialize google earth engine without an assocated service account to authorize
@@ -100,6 +109,32 @@ app = express();
             console.error(err);
             res.send("Error " + err);
         }
+    })
+    .get('/reportbugsucess', (req, res) => res.render('pages/reportbugsucess'))
+    .get('/reportbugfail', (req, res) => res.render('pages/reportbugfail'))
+    .get('/reportbug', (req, res) => res.render('pages/reportbug'))
+    .post('/reportbug', async(req, res) => {
+        const client = await pool.connect();
+            
+        const email = req.body.email;
+        const subject = req.body.subject;
+        const descript = req.body.descript;
+     
+        const mailOptions = {
+            from: email,
+            to: 'notawebappbugreport@gmail.com',
+            subject: subject,
+            text: descript
+        };
+
+        transporter.sendMail(mailOptions, function(err, data) {
+            if (err) {
+                res.render('pages/reportbugfail');
+            } else {
+                res.render('pages/reportbugsuccess');
+            }
+        });
+        client.release();
     });
 
 var counter = 0;
