@@ -1,8 +1,7 @@
-
 //Add new user
 function signupUser() {
     document.getElementById('signup-form').action = '/signup';
-    document.getElementById('signup-form').submit();
+    document.getElementById('signup-form').submit();    //how do i do this on enter again?
 }
 
 //Login user
@@ -38,7 +37,7 @@ function toggleTheme() {
     }
 }
 
-$(function(){
+$( document ).ready(function() {
     //chat
     //var socket = io.connect('http://localhost:5000');  //originally without /main --> does it make a difference?
     var socket = io();  //originally without /main --> does it make a difference?
@@ -50,7 +49,7 @@ $(function(){
         return false;
     });
     //append the chat text message
-    socket.on('cat_message', function(msg) {
+    socket.on('chat_message', function(msg) {
         console.log(msg);
         $('#messages').append($('<li>').html(msg));
     });
