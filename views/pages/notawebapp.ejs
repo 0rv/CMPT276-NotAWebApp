@@ -86,8 +86,15 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
             var mly = new Mapillary.Viewer(
                 'mly',
                 'c1pndXVHMENPdU1WOFR1UC1yZzdYQTo4NmY1ODYxZDE1MDBkM2Zi',
-                'QjI1NnU0aG5FZFZISE56U3R5aWN4Zzo3NTM1MjI5MmRjODZlMzc0'
+                null
             );
+            var lat = 55.4739811;
+            var lon = 14.2831336;
+
+            mly.moveCloseTo(lat, lon)
+              .then(
+                function(node) { console.log(node.key); },
+                function(error) { console.error(error); });
             
           // Viewer size is dynamic so resize should be called every time the window size changes
           window.addEventListener("resize", function() { mly.resize(); });
@@ -113,8 +120,11 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
             </div>
         </div>
     </div>
+    
+    <!-- attempt at an embeddable side-map so users may see alt/long coords easier -->mly
+    
     <p class="currentScore">Current Score:</p>
-    <p id = "score" class="currentScore" style="font-weight: bold"></p>
+    <p id = "score" class="currentScore" style="font-weight: bold">0</p>
     <p class="currentScore">Chatting as:</p>
     <p id = "usrname" class="currentScore" style="font-weight: bold"></p>
     

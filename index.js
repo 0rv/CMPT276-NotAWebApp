@@ -9,6 +9,9 @@ const pool = new Pool({
 // less so for the following...
 var express = require('express');
 var app = express();
+var fs = require('fs') //stopgag measure this is bad practice
+var cities = fs.readFileSync('public/1000.json')
+
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 // Look, whatever model this guy is using
@@ -107,7 +110,10 @@ var allowCrossDomain = function(req, res, next) {
   })  
 
 // Attempt at Mapillar features oh lord oh yikes
-
+// We'll actually use sockets here because the users need to see the same things
+  io.on('maprequest', (socket) => {
+    // if the users have asked for a new map
+  })
 
 
 // pick one, comment the other
