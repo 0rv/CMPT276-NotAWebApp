@@ -1,7 +1,7 @@
 body        { 
-                background: url(/play.jpg);
+                background: url(/play.jpg) no-repeat center center fixed;
                 background-repeat: no-repeat;
-                background-size: 100%;
+                background-size: cover;
                 color: rgb(69, 72, 76); 
                 margin-top: 0px;
                 font-family: Verdana, sans-serif; 

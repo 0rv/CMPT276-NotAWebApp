@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
   console.log('Client connected.');
   socket.on('disconnect', () => console.log('Client disconnected.'))
   socket.on('chat', function(msg) {
-    console.log("Server got ", msg);
+    //console.log("Server got ", msg);
     socket.emit('chatresponse', msg); //sends to the other clients
     socket.broadcast.emit('chatresponse', msg); //sends to the original sender
   })
