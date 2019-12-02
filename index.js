@@ -9,6 +9,15 @@ const pool = new Pool({
 // less so for the following...
 var express = require('express');
 var app = express();
+
+
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+// Look, whatever model this guy is using
+// https://www.programwitherik.com/socket-io-tutorial-with-node-js-and-express/
+// Just go with it we don't reasonably have time to make the perfect implementation
+// i.e with react or other libraries
+
 // configuration for Heroku build
 //https://stackoverflow.com/questions/11001817/allow-cors-rest-request-to-a-express-node-js-application-on-heroku
 //The following enables CORS (Cross-Origin Resource Sharing) which would otherwise prevent some socket.io functionality by preventing the load of some required js. The long and short is that we should not be requiring any resource from an http connection while on https (and can be somewhat bypassed by revoking the secure connection on the remote deploy)
@@ -25,14 +34,8 @@ var allowCrossDomain = function(req, res, next) {
     }
 };
 
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
-// Look, whatever model this guy is using
-// https://www.programwitherik.com/socket-io-tutorial-with-node-js-and-express/
-// Just go with it we don't reasonably have time to make the perfect implementation
-// i.e with react or other libraries
-
-  app.use(express.static(path.join(__dirname, 'public')))
+  app.use(allowCrossDomain)
+  .use(express.static(path.join(__dirname, 'public')))
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .set('views', path.join(__dirname, 'views'))
@@ -84,33 +87,17 @@ var io = require('socket.io')(server);
     }
   });
 
-/*
-var counter = 0;
-io.sockets.on('connection', function(socket) {
-  socket.on('username', function(username) {
-    socket.username = username;
-    io.emit('is_online', '• <i>' + socket.username + ' joined the game</i>'); //what does the is_online do? does it print? delete if it does --> for the one below too
-    counter++;
-    socket.emit('counter', {count:counter});
-  });
-  socket.on('disconnect', function(username) {
-    io.emit('is_online', '• <i>' + socket.username + ' left the game<i/>');
-    counter--;
-    socket.emit('counter', {count:counter});
-  });
-  socket.on('chat_message', function(message) {
-    io.emit('chat_message', ' <strong> ' + socket.username + ' </strong>: ' + message);
-  });
-});
-*/
+  
+io.on('connection', (socket) => {
+  console.log('Client connected.');
+  socket.on('disconnect', () => console.log('Client disconnected.'))
+  socket.on('chat', function(msg) {
+    console.log("Server got ", msg);
+    socket.emit('chatresponse', msg); //sends to the other clients
+    socket.broadcast.emit('chatresponse', msg); //sends to the original sender
+  })
+})
 
-  io.on('connection', function (socket) {
-    console.log("socket connected")
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-      console.log(data);
-    });
-  });
 
 // pick one, comment the other
 //app.listen(PORT, () => { console.log(`App listening on ${ PORT }`);  }) 

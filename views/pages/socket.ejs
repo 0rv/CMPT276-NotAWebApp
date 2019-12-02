@@ -15,12 +15,20 @@
     <div id="header">
       <h3 id="title">Socket.io Testbed</h3>
       <h5 id="username">nothing to see here :(</h5>
-      <!--<button id="button1" value="b1" onclick="window.location.href = 'mainmenu';">go back?</button>  
-        -->      
+      <ul id="chat" class="chat">
+      </ul>
+        
+      <form id="chatbox" method="post">
+        <input id="chatbox" type="text" name="msg">
+        <p id = "errorbox" class="errormsg"></p>
+        <input type="button" onclick="sendMsg()" value="send"></button>
+      </form>
+   
     </div>
 
 
   </div>
+  <!--
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:5000');
@@ -28,6 +36,36 @@
       console.log(data);
       socket.emit('my other event', { my: 'data' });
     });
+  </script>
+    -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- this causes CORS errors (see index.js, commit log) -->
+  <script>    
+    // var username
+    var socket = io();
+    
+    socket.on('chatresponse', function(msg) {
+      console.log("Client rcv ", msg);
+      // https://stackoverflow.com/questions/47951287
+      var ul = document.getElementById('chat')
+      var li = document.createElement('li')
+      li.appendChild(document.createTextNode(msg))
+      ul.appendChild(li);
+    });
+    
+    function sendMsg() {
+      var msg = document.getElementById('chatbox')[0].value;
+      console.log("Send button clicked "+msg);
+      if (msg == "") {
+        document.getElementById('errorbox').innerHTML = "Please enter a message.";
+        return;
+      }
+      document.getElementById('errorbox').innerHTML = "";
+      socket.emit('chat', msg);
+      //document.getElementById('chat').innerHTML += "<br>"+msg
+      // instead update chat box when server re-distributes the message
+    }
+    
   </script>
 </body>
 
