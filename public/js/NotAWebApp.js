@@ -37,6 +37,15 @@ function toggleTheme() {
     }
 }
 
+function randColor(){
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}; 
+
 $( document ).ready(function() {
     //chat
     //var socket = io.connect('http://localhost:5000');  //originally without /main --> does it make a difference?
@@ -55,7 +64,7 @@ $( document ).ready(function() {
     });
     //append text if someone is online
     socket.on('is_online', function(username) {
-        $('#messages').append($('<li>').html(username));
+        $('#messages').append($('<li>').html(username).attr("style", "color:"+randColor()));    //colourful logon/off -->makes it fun to see
     });
     //ask username -- for now allowing user to choose a nickname instead of using their userid
     var username = prompt('Please choose a nickname');
