@@ -91,9 +91,22 @@ var allowCrossDomain = function(req, res, next) {
       res.send("Error " + err);
     }
   });
-// Attempt at Mapillar features oh lord oh yikes
 
-  
+  var usr = null
+
+  io.on('connection', (socket) => {
+    //usr = prompt('Please choose a nickname')
+    socket.broadcast.emit('nickname', usr)
+    console.log('Client connected.');
+    socket.on('disconnect', () => console.log('Client disconnected.'))
+    socket.on('chat', function(msg) {
+      //console.log("Server got ", msg);
+      socket.emit('chatresponse', msg); //sends to the other clients
+      socket.broadcast.emit('chatresponse', msg); //sends to the original sender
+    })
+  })  
+
+// Attempt at Mapillar features oh lord oh yikes
 
 
 

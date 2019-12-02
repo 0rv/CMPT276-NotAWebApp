@@ -31,6 +31,46 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
         html, body { margin: 0; padding: 0; height: 100%; }
         #mly { height: 100%; }
     </style>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- this causes CORS errors (see index.js, commit log) -->
+    <script>    
+      var socket = io();
+      var username = ""
+      
+      socket.on('nickname', function(msg) {
+        //TODO should also generate list of users for user list on sidebar
+        if (username == "") {
+          username = msg
+        }
+        
+      })
+      
+      socket.on('chatresponse', function(msg) {
+        //console.log("Client rcv ", msg);
+        // https://stackoverflow.com/questions/47951287
+        var ul = document.getElementById('chat')
+        var li = document.createElement('li')
+        li.appendChild(document.createTextNode(msg))
+        ul.appendChild(li);
+      });
+    
+      function sendMsg() {
+        var msg = document.getElementById('chatbox')[0].value;
+        //console.log("Send button clicked "+msg);
+        if (msg == "") {
+          document.getElementById('errorbox').innerHTML = "Please enter a message.";
+          return;
+        }
+        msg = document.getElementById('usrname').innerHTML + ": " + msg
+        document.getElementById('errorbox').innerHTML = "";
+        socket.emit('chat', msg);
+        //document.getElementById('chat').innerHTML += "<br>"+msg
+        // instead update chat box when server re-distributes the message
+      }
+    
+    </script>
+      
 </head>
 <body>
 
@@ -65,52 +105,23 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
               <!-- (more) important bits below -->
               <ul id="chat" class="chat"></ul>
               <form id="chatbox" method="post">
-                <input id="chatbox" type="text" name="msg">
+                <input id="chatbox" type="text" name="msg" style="padding-left:60px" placeholder="Type here to chat">
                 <p id = "errorbox" class="errormsg"></p>
-                <input type="button" class = "chatsend" onclick="sendMsg()" value="send"></button>
+                <input type="button" class = "chatsend" onclick="sendMsg()" value="send" style="width:55px; float: right"></button>
               </form>
               
             </div>
         </div>
     </div>
-    <p id="bottom" class="currentScore">Current Score: ##</p>
+    <p class="currentScore">Current Score:</p>
+    <p id = "score" class="currentScore" style="font-weight: bold"></p>
+    <p class="currentScore">Chatting as:</p>
+    <p id = "usrname" class="currentScore" style="font-weight: bold"></p>
     
-    <script src="/socket.io/socket.io.js"></script>
-    <!-- this causes CORS errors (see index.js, commit log) -->
-    <script>    
-      var socket = io();
-      var username = ""
-      
-      socket.on('nickname', function(msg) {
-        //TODO should also generate list of users for user list on sidebar
-        if (username == "") {
-          username = msg
-        }
-        
-      })
-      
-      socket.on('chatresponse', function(msg) {
-        //console.log("Client rcv ", msg);
-        // https://stackoverflow.com/questions/47951287
-        var ul = document.getElementById('chat')
-        var li = document.createElement('li')
-        li.appendChild(document.createTextNode(msg))
-        ul.appendChild(li);
-      });
-    
-      function sendMsg() {
-        var msg = document.getElementById('chatbox')[0].value;
-        //console.log("Send button clicked "+msg);
-        if (msg == "") {
-          document.getElementById('errorbox').innerHTML = "Please enter a message.";
-          return;
-        }
-        document.getElementById('errorbox').innerHTML = "";
-        socket.emit('chat', msg);
-        //document.getElementById('chat').innerHTML += "<br>"+msg
-        // instead update chat box when server re-distributes the message
-      }
-    
+    <script>
+      var usr = prompt("Please enter a nickname.")
+      document.getElementById('usrname').innerHTML = usr
     </script>
+    
 </body>
 </html>
