@@ -9,7 +9,7 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
 <head>
     <meta charset="utf-8">
     <title>Not A Web App</title>
-    <link type="text/css" rel="stylesheet" href="/notawebapp.css">
+    <link type="text/css" rel="stylesheet" href="public/notawebapp.css">
     
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://unpkg.com/mapillary-js@2.20.0/dist/mapillary.min.js'></script> 
@@ -68,37 +68,6 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
               document.getElementById("fright").innerHTML = "Dark Mode";
           }
       }
-      /*
-      $(function(){
-          //chat
-          //var socket = io.connect('http://localhost:5000');  //originally without /main --> does it make a difference?
-          var socket = io();  //originally without /main --> does it make a difference?
-          //submit text message without reload/refresh the page
-          $('form').submit(function(e){
-              e.preventDefault();
-              socket.emit('chat_message', $('#txt').val());
-              $('#txt').val('');
-              return false;
-          });
-          //append the chat text message
-          socket.on('cat_message', function(msg) {
-              console.log(msg);
-              $('#messages').append($('<li>').html(msg));
-          });
-          //append text if someone is online
-          socket.on('is_online', function(username) {
-              $('#messages').append($('<li>').html(username));
-          });
-          //ask username -- for now allowing user to choose a nickname instead of using their userid
-          var username = prompt('Please choose a nickname');
-          socket.emit('username', username);
-
-          //number of users online
-          socket.on('counter', function(data) {
-              $("#counter").text(data.count);
-          });
-      });
-      */
       
     </script>
     
