@@ -9,14 +9,14 @@ const pool = new Pool({
 // less so for the following...
 var express = require('express');
 var app = express();
-
-
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 // Look, whatever model this guy is using
 // https://www.programwitherik.com/socket-io-tutorial-with-node-js-and-express/
 // Just go with it we don't reasonably have time to make the perfect implementation
 // i.e with react or other libraries
+
+const map = require('mapillary-js') // https://www.npmjs.com/package/mapillary-js
 
 // configuration for Heroku build
 //https://stackoverflow.com/questions/11001817/allow-cors-rest-request-to-a-express-node-js-application-on-heroku
@@ -91,17 +91,10 @@ var allowCrossDomain = function(req, res, next) {
       res.send("Error " + err);
     }
   });
+// Attempt at Mapillar features oh lord oh yikes
 
   
-io.on('connection', (socket) => {
-  console.log('Client connected.');
-  socket.on('disconnect', () => console.log('Client disconnected.'))
-  socket.on('chat', function(msg) {
-    //console.log("Server got ", msg);
-    socket.emit('chatresponse', msg); //sends to the other clients
-    socket.broadcast.emit('chatresponse', msg); //sends to the original sender
-  })
-})
+
 
 
 // pick one, comment the other

@@ -23,6 +23,7 @@ function loginUser() {
 function useMaps() {
   // just a test that the google earth engine APi is in use
   //document.getElementById
+  //TODO remove this?
   document.getElementById('mapSubmit').action = '/randMap';
   document.getElementById('mapSubmit').submit();
   
@@ -37,7 +38,7 @@ function toggleTheme() {
         document.getElementById("fright").innerHTML = "Dark Mode";
     }
 }
-
+/*
 $(function(){
     //chat
     //var socket = io.connect('http://localhost:5000');  //originally without /main --> does it make a difference?
@@ -67,3 +68,17 @@ $(function(){
         $("#counter").text(data.count);
     });
 });
+*/
+var usr = null
+
+io.on('connection', (socket) => {
+  usr = prompt('Please choose a nickname')
+  socket.broadcast.emit('nickname', usr)
+  console.log('Client connected.');
+  socket.on('disconnect', () => console.log('Client disconnected.'))
+  socket.on('chat', function(msg) {
+    //console.log("Server got ", msg);
+    socket.emit('chatresponse', msg); //sends to the other clients
+    socket.broadcast.emit('chatresponse', msg); //sends to the original sender
+  })
+})

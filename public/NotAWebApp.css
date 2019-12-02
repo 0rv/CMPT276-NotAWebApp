@@ -137,6 +137,10 @@ form button {
     margin: 10px 10px 10px 10px;
     border-radius: 25px;
 }
+#chatsend {
+  width: 30px;
+  
+}
 #messages {
     list-style-type: none;
     margin: 0;
@@ -212,9 +216,9 @@ form button {
 }
 #errorbox    {
   font-family: Consolas;
-  font-size: 8px;
+  font-size: 10px;
   color: rgb(140, 0, 0);
-  text-align: left;;
+  text-align: center;
 }
 
 ul {

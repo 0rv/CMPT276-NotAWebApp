@@ -1,9 +1,19 @@
 <!DOCTYPE html>
+<!--
+What kind of idiot puts his API keys in a comment? This one.
+
+Client ID:     c1pndXVHMENPdU1WOFR1UC1yZzdYQTo4NmY1ODYxZDE1MDBkM2Zi
+Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
+-->
 <html>
 <head>
     <meta charset="utf-8">
     <title>Not A Web App</title>
     <link type="text/css" rel="stylesheet" href="/notawebapp.css">
+    
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://unpkg.com/mapillary-js@2.20.0/dist/mapillary.min.js'></script> 
+    <link type = "text/css" href='https://unpkg.com/mapillary-js@2.20.0/dist/mapillary.min.css' rel='stylesheet'/>
     <!--
     <link rel="stylesheet" href="/notawebapp.css">
       <link type="text/css" href="/notawebapp.css">
@@ -16,6 +26,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script src="/js/notawebapp.js"></script>
+    
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; }
+        #mly { height: 100%; }
+    </style>
 </head>
 <body>
 
@@ -25,25 +40,34 @@
 
     <button id="logout-form" onclick="location.href='/login'">Logout</button>
     <button id="fright" onclick="toggleTheme()">Light Mode</button>
-    <h2> </h2>
-
-    <p id="topRight">Current Location: # <br> Goal: # <br> Speed: # <br>
-    </p>
+    <h2>
+      <div id='mly'>
+        <script>
+            var mly = new Mapillary.Viewer(
+                'mly',
+                'c1pndXVHMENPdU1WOFR1UC1yZzdYQTo4NmY1ODYxZDE1MDBkM2Zi',
+                'QjI1NnU0aG5FZFZISE56U3R5aWN4Zzo3NTM1MjI5MmRjODZlMzc0'
+            );
+            
+          // Viewer size is dynamic so resize should be called every time the window size changes
+          window.addEventListener("resize", function() { mly.resize(); });
+        </script>
+      </div>
+    </h2>
 
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <p class="timer"> </p> <!-- Timer-->
-                <p class="nextGame"></p> <!-- Until next game -->
                 <p class="usersOnline" id="counter">Users Online: </p>
             </div>
+
             <div class="col-sm-8">
-              <!-- important bits below -->
+              <!-- (more) important bits below -->
               <ul id="chat" class="chat"></ul>
               <form id="chatbox" method="post">
                 <input id="chatbox" type="text" name="msg">
                 <p id = "errorbox" class="errormsg"></p>
-                <input type="button" onclick="sendMsg()" value="send"></button>
+                <input type="button" class = "chatsend" onclick="sendMsg()" value="send"></button>
               </form>
               
             </div>
@@ -55,9 +79,18 @@
     <!-- this causes CORS errors (see index.js, commit log) -->
     <script>    
       var socket = io();
-    
+      var username = ""
+      
+      socket.on('nickname', function(msg) {
+        //TODO should also generate list of users for user list on sidebar
+        if (username == "") {
+          username = msg
+        }
+        
+      })
+      
       socket.on('chatresponse', function(msg) {
-        console.log("Client rcv ", msg);
+        //console.log("Client rcv ", msg);
         // https://stackoverflow.com/questions/47951287
         var ul = document.getElementById('chat')
         var li = document.createElement('li')
