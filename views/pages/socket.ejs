@@ -15,8 +15,7 @@
     <div id="header">
       <h3 id="title">Socket.io Testbed</h3>
       <h5 id="username">nothing to see here :(</h5>
-      <ul id="chat" class="chat">
-      </ul>
+      <ul id="chat" class="chat"></ul>
         
       <form id="chatbox" method="post">
         <input id="chatbox" type="text" name="msg">
@@ -41,7 +40,6 @@
   <script src="/socket.io/socket.io.js"></script>
   <!-- this causes CORS errors (see index.js, commit log) -->
   <script>    
-    // var username
     var socket = io();
     
     socket.on('chatresponse', function(msg) {

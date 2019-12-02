@@ -35,7 +35,12 @@ var allowCrossDomain = function(req, res, next) {
 };
 
   app.use(allowCrossDomain)
-  .use(express.static(path.join(__dirname, 'public')))
+  .use(express.static(path.join(__dirname + "/public"), {
+    index: false,
+    immutable: true,
+    cacheControl: true,
+    maxAge: "30d"
+  }))
   .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .set('views', path.join(__dirname, 'views'))
