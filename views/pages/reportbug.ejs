@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/apphead5.ejs %>
+</head>
+
+<body>
+    <div id="container">
+
+        <h3 id="title">Report Bug</h3>    
+        <form id="reportbug_form" action="/reportbug" method="post">
+            E-mail:<br>
+            <input type="email" name='email' id="email" placeholder="your email address" maxlength="50" required>
+            <br><br>Bug's Found in:<br>
+            <select name="subject" id="subject">
+                <option value="bug_login">Log In Page</option>
+                <option value="bug_signin">Sign In Page</option>
+                <option value="bug_logoff">Log Off</option>
+                <option value="bug_game_page">New Game Page</option>
+                <option value="bug_main_menu">Main Menu Page</option>
+                <option value="bug_howto">How To Play Page</option>
+                <option value="bug_review">Review Page</option>
+            </select>
+            <br><br>Description:<br>
+            <textarea name='descript' id="descript" placeholder="description of the bug" required></textarea>
+            <br>
+            <button id="submit" value="submit">Submit</button>
+        </form>
+            <br><br><br><br>
+            <button id="back" onclick="window.location.href = '/mainmenu';">Back</button>
+          
+    </div>
+     <p id="credit">image credit: tokyoluv@instagram</p>
+</body>
+
+</html>

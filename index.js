@@ -59,6 +59,38 @@ var allowCrossDomain = function(req, res, next) {
   .get('/underconstruction', (req, res) => res.render('pages/underconstruction'))
   .get('/login', (req, res) => res.render('pages/login'))
   .post('/main', async(req, res) => { res.render('pages/notawebapp') })
+  .get('/review', async(req,res) => {
+      try {
+          const client = await pool.connect()
+          const result = await client.query(`SELECT * FROM review;`);
+
+          const results = { 'rows': result.rows };
+          res.render('pages/review', results);
+          client.release();
+      } catch (err) {
+          console.error(err);
+          res.send("Error " + err);
+      }
+  })
+  .post('/review', async(req, res) => {    
+      try {
+          const client = await pool.connect()
+          const result = await client.query(`INSERT INTO review VALUES('${req.body.name}', '${req.body.review}');`);
+          
+          const result2 = await client.query(`SELECT * FROM review;`);
+          const results = { 'rows': result2.rows };
+          res.render('pages/review', results);
+          client.release();
+      } catch (err) {
+          console.error(err);
+          res.send("Error " + err);
+      }
+  })
+  .get('/reportbugsucess', (req, res) => res.render('pages/reportbugsucess'))
+  .get('/reportbugfail', (req, res) => res.render('pages/reportbugfail'))
+  .get('/reportbug', (req, res) => res.render('pages/reportbug'))
+  .get('/howto', (req, res) => res.render('pages/howto'))
+  .get('/underconstruction', (req, res) => res.render('pages/underconstruction'))
   .post('/login', async(req, res) => {
     try {
       // input sanitation (protection from injection attacks) is beyond the scope of the project because I'm depressed :)))

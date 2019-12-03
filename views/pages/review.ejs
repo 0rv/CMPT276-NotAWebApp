@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/apphead4.ejs %>
+</head>
+
+<body>
+    <div id="container">
+
+        <h3 id="title">Not A Web App Review</h3>
+            
+        <div id="texthere">
+            <% rows.forEach((r) => { %>
+                <p class="name"> <%= r.name %> </p>
+                <p class="review"> "<%= r.review %>" </p>
+                <br><br>
+            <% }); %>
+        </div>
+        
+        <br>
+            <button id="button1" value="b1" onclick="window.location.href = '/mainmenu';">Back</button>
+        <br><br><br>
+        
+        <div id="reviewform">
+            <fieldset>
+                <legend>Add your own review here!</legend>
+                <br>
+                <form id="review-form" action="/review" method="post">
+                        <input type="text" name="name" placeholder="user name" id="review-name" maxlength="20" required>
+
+                        <br>
+                        <input type="text" name="review" id="review-input" placeholder="Write your review (max.300 char)" maxlength="300" required>
+                        <br>
+                        <br>
+                        <button id="submit">Submit</button>
+                </form>
+            </fieldset>
+        </div>
+        
+            
+            
+    </div>
+     <p id="credit">image credit: tokyoluv@instagram</p>
+</body>
+
+</html>
