@@ -9,7 +9,7 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
 <head>
     <meta charset="utf-8">
     <title>Not A Web App</title>
-    <link type="text/css" rel="stylesheet" href="public/notawebapp.css">
+    <link type="text/css" rel="stylesheet" href="/notawebapp.css">
     
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://unpkg.com/mapillary-js@2.20.0/dist/mapillary.min.js'></script> 
@@ -28,7 +28,10 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
     <!--<script src="/js/notawebapp.js"></script>
     -->
     <script>
-
+      //TODO:
+      //This javascript is inline because of a KNOWN ISSUE with Express.js that causes the MIME reponse of pages
+      //to be overwritte. Secure browsers will not allow the loading of a file when the MIME type has a mismatch
+      //thus the javascript and css isn't loaded in most cases. See commit history for details.
       //Add new user
       function signupUser() {
           document.getElementById('signup-form').action = '/signup';
@@ -78,9 +81,19 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
     
     <script src="/socket.io/socket.io.js"></script>
     <!-- this causes CORS errors (see index.js, commit log) -->
-    <script>    
+    <script>       
       var socket = io();
       var username = ""
+      var coords = []
+      
+      socket.on('newmap', function(msg) {
+        coords = msg.fields.coordinates
+        console.log("Client got city "+msg.fields.city)
+        mly.moveCloseTo(coords[0], coords[1])
+      })
+      socket.on('point', function(msg) {
+        document.getElementById('score').innerHTML = parseInt(document.getElementById('score').innerHTML) + 1
+      })
       
       socket.on('nickname', function(msg) {
         //TODO should also generate list of users for user list on sidebar
@@ -112,7 +125,20 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
         //document.getElementById('chat').innerHTML += "<br>"+msg
         // instead update chat box when server re-distributes the message
       }
-    
+      
+      function sendGuess() {
+        guess = document.getElementById('chatbox')[0].value
+        if (guess == "") {
+          document.getElementById('errorbox').innerHTML = "Please enter a city.";
+          return;
+        }
+        document.getElementById('errorbox').innerHTML = "";
+        socket.emit('mapguess', guess)
+      }
+      
+      function getMap() {
+        socket.emit('maprequest', null)
+      }
     </script>
       
 </head>
@@ -120,28 +146,28 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
 
 
 
-    <h1>Map Game</h1>
+    <h1>Guess the City</h1>
 
     <button id="logout-form" onclick="location.href='/login'">Logout</button>
     <button id="fright" onclick="toggleTheme()">Light Mode</button>
     <h2>
       <div id='mly'>
         <script>
-            var mly = new Mapillary.Viewer(
-                'mly',
-                'c1pndXVHMENPdU1WOFR1UC1yZzdYQTo4NmY1ODYxZDE1MDBkM2Zi',
-                null
-            );
-            var lat = 55.4739811;
-            var lon = 14.2831336;
+          var mly = new Mapillary.Viewer(
+              'mly',
+              'c1pndXVHMENPdU1WOFR1UC1yZzdYQTo4NmY1ODYxZDE1MDBkM2Zi',
+              null
+          );
+          var lat = 55.4739811;
+          var lon = 14.2831336;
 
-            mly.moveCloseTo(lat, lon)
-              .then(
-                function(node) { console.log(node.key); },
-                function(error) { console.error(error); });
-            
-          // Viewer size is dynamic so resize should be called every time the window size changes
-          window.addEventListener("resize", function() { mly.resize(); });
+          mly.moveCloseTo(lat, lon)
+            .then(
+              function(node) { console.log(node.key); },
+              function(error) { console.error(error); });
+          
+        // Viewer size is dynamic so resize should be called every time the window size changes
+        window.addEventListener("resize", function() { mly.resize(); });
         </script>
       </div>
     </h2>
@@ -156,16 +182,21 @@ Client Secret: Yjg4Y2Y3MDVkMzNlMDNhNGFiMDc1NzRmMmMyYTc5ZjM=>
               <!-- (more) important bits below -->
               <ul id="chat" class="chat"></ul>
               <form id="chatbox" method="post">
-                <input id="chatbox" type="text" name="msg" style="padding-left:60px" placeholder="Type here to chat">
+                <input id="chatbox" type="text" name="msg" style="padding-left:60px" placeholder="Enter a Message or City Name">
                 <p id = "errorbox" class="errormsg"></p>
-                <input type="button" class = "chatsend" onclick="sendMsg()" value="send" style="width:55px; float: right"></button>
+                <input type="button" class = "chatsend" onclick="sendMsg()" value="Send" style="width:55px; float: right"></button>
+       <input type="button" class = "chatsend" onclick="sendGuess()" value="Guess" style="width:75px; position:sticky"></button>
+              <input type="button" class = "chatsend" onclick="getMap()" value="New Map" style="width:105px; position:sticky"></button>
+       
+
               </form>
               
             </div>
+
         </div>
     </div>
     
-    <!-- attempt at an embeddable side-map so users may see alt/long coords easier -->mly
+    <!-- attempt at an embeddable side-map so users may see alt/long coords easier -->
     
     <p class="currentScore">Current Score:</p>
     <p id = "score" class="currentScore" style="font-weight: bold">0</p>

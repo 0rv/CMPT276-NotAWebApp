@@ -10,7 +10,10 @@ const pool = new Pool({
 var express = require('express');
 var app = express();
 var fs = require('fs') //stopgag measure this is bad practice
-var cities = fs.readFileSync('public/1000.json')
+var cities = require('./public/1000.json')
+//holy this works?
+//console.log(cities[0].fields.city, cities[0].fields.coordinates[0], cities[0].fields.coordinates[1])
+//behold a loaded city item
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -96,6 +99,8 @@ var allowCrossDomain = function(req, res, next) {
   });
 
   var usr = null
+  var mapno = 0
+  
 
   io.on('connection', (socket) => {
     //usr = prompt('Please choose a nickname')
@@ -107,13 +112,54 @@ var allowCrossDomain = function(req, res, next) {
       socket.emit('chatresponse', msg); //sends to the other clients
       socket.broadcast.emit('chatresponse', msg); //sends to the original sender
     })
+    
+    socket.on('maprequest', function() {
+      // if the users have asked for a new map
+      // https://stackoverflow.com/questions/1527803
+      mapno = Math.floor( Math.random() * 1000 )
+      newmap = cities[mapno]
+      socket.emit('newmap', newmap)
+      socket.broadcast.emit('newmap', newmap)
+      console.log("Sending new map with id "+mapno)
+      //allows cheating but is also the only way we could possibly test this
+      //spit the new map object back at clients, they can do the work
+    })
+  
+    socket.on('mapguess', function(msg) {
+      //when players guess the city
+      if (msg == cities[mapno].fields.city) {
+        socket.emit('chat', `SERVER: ${msg} WAS CORRECT`)
+        socket.broadcast.emit('chat', `SERVER: ${msg} WAS CORRECT`)
+        socket.emit('point', null)
+        socket.broadcast.emit('point', null)
+        console.log("Clients guessed correctly; point awarded")
+        //could maybe roll this into a function
+        mapno = Math.floor( Math.random() * 1000 )
+        newmap = cities[mapno]
+        socket.emit('newmap', newmap)
+        socket.broadcast.emit('newmap', newmap)
+        console.log("Sending new map with id "+mapno)
+        
+      } else {
+        socket.emit('chat', `SERVER: ${msg} WAS INCORRECT`)
+        socket.broadcast.emit('chat', `SERVER: ${msg} WAS INCORRECT`)
+      }
+      
+    })
+    
   })  
 
 // Attempt at Mapillar features oh lord oh yikes
 // We'll actually use sockets here because the users need to see the same things
-  io.on('maprequest', (socket) => {
-    // if the users have asked for a new map
-  })
+  
+  //indexing guide:
+  //cities[0].fields.city
+  //cities[0].fields.coordinates[0]
+  //cities[0].fields.coordinates[1]
+
+  
+  
+
 
 
 // pick one, comment the other
